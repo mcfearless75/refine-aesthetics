@@ -816,7 +816,7 @@
           </div>
         </div>
 
-        <form class="contact-form reveal reveal-delay-2" id="contactForm" novalidate>
+        <form class="contact-form reveal reveal-delay-2" id="contactForm" action="https://formspree.io/f/xbdqewpv" method="POST">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
             <div class="form-row">
               <label for="fname">First Name</label>
@@ -1014,15 +1014,31 @@
   });
 
   // Contact form
-  document.getElementById('contactForm').addEventListener('submit', function(e) {
+  document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = this.querySelector('.btn-submit');
     btn.textContent = 'Sending…';
     btn.disabled = true;
-    setTimeout(() => {
-      btn.textContent = 'Sent! We\'ll be in touch soon.';
-      btn.style.background = '#10B981';
-    }, 1200);
+    try {
+      const res = await fetch(this.action, {
+        method: 'POST',
+        body: new FormData(this),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        btn.textContent = 'Sent! We\'ll be in touch soon.';
+        btn.style.background = '#10B981';
+        this.reset();
+      } else {
+        btn.textContent = 'Something went wrong — please call us.';
+        btn.style.background = '#EF4444';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Network error — please try again.';
+      btn.style.background = '#EF4444';
+      btn.disabled = false;
+    }
   });
 </script>
 </body>
