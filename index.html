@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Refine Aesthetics & Skin Clinic — Advanced aesthetics, semi-permanent cosmetics and medical-grade skincare in West Kirby, Wirral. Botox, dermal fillers, skin boosters and more.">
+  <title>Refine Aesthetics & Skin Clinic | West Kirby, Wirral</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --pink:      #EC4899;
+      --pink-light:#F9A8D4;
+      --pink-pale: #FDF2F8;
+      --pink-mid:  #F472B6;
+      --mauve:     #8B5CF6;
+      --mauve-light:#DDD6FE;
+      --rose-dark: #831843;
+      --rose-mid:  #BE185D;
+      --text:      #1C0F1A;
+      --text-mid:  #6B3255;
+      --text-light:#A07090;
+      --white:     #FFFFFF;
+      --surface:   #FFF7FB;
+      --border:    #F3D4E7;
+      --shadow:    rgba(139,44,122,0.12);
+      --nav-h:     72px;
+      --radius:    16px;
+      --radius-lg: 24px;
+      --ease:      cubic-bezier(0.4,0,0.2,1);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--pink-pale);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    /* ── Typography ── */
+    h1,h2,h3,h4 { font-family: 'Playfair Display', serif; line-height: 1.2; }
+    h1 { font-size: clamp(2.4rem, 6vw, 4.5rem); }
+    h2 { font-size: clamp(1.8rem, 4vw, 3rem); }
+    h3 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); }
+
+    /* ── Animations ── */
+    @keyframes fadeUp   { from { opacity:0; transform:translateY(32px); } to { opacity:1; transform:none; } }
+    @keyframes fadeIn   { from { opacity:0; } to { opacity:1; } }
+    @keyframes scaleIn  { from { opacity:0; transform:scale(0.92); } to { opacity:1; transform:scale(1); } }
+    @keyframes shimmer  { from { background-position: -200% 0; } to { background-position: 200% 0; } }
+    @keyframes float    { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-10px); } }
+    @keyframes marquee  { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+    @keyframes pulse-ring { 0% { box-shadow:0 0 0 0 rgba(236,72,153,.4); } 70% { box-shadow:0 0 0 16px rgba(236,72,153,0); } 100% { box-shadow:0 0 0 0 rgba(236,72,153,0); } }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+    }
+
+    /* ── Reveal on scroll ── */
+    .reveal { opacity:0; transform:translateY(28px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+    .reveal.visible { opacity:1; transform:none; }
+    .reveal-delay-1 { transition-delay:.1s; }
+    .reveal-delay-2 { transition-delay:.2s; }
+    .reveal-delay-3 { transition-delay:.3s; }
+    .reveal-delay-4 { transition-delay:.4s; }
+
+    /* ── Nav ── */
+    .nav {
+      position: fixed; top:16px; left:16px; right:16px; z-index:100;
+      background: rgba(255,247,251,0.85);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0 28px;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 4px 24px var(--shadow);
+      transition: all .3s var(--ease);
+    }
+    .nav.scrolled { background: rgba(255,247,251,0.97); }
+    .nav-logo { display:flex; align-items:center; gap:10px; }
+    .nav-logo img { height:44px; width:auto; }
+    .nav-logo-text { font-family:'Playfair Display',serif; font-size:1rem; color:var(--rose-dark); line-height:1.2; }
+    .nav-links { display:flex; align-items:center; gap:8px; }
+    .nav-links a {
+      font-size:.875rem; font-weight:500; color:var(--text-mid);
+      padding:8px 14px; border-radius:10px;
+      transition: color .2s, background .2s;
+    }
+    .nav-links a:hover { color:var(--pink); background:rgba(236,72,153,.08); }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--pink), var(--mauve));
+      color:var(--white) !important;
+      padding:10px 22px !important; border-radius:12px !important;
+      font-weight:600 !important;
+      box-shadow: 0 4px 16px rgba(236,72,153,.35);
+      transition: transform .2s, box-shadow .2s !important;
+    }
+    .nav-cta:hover { transform:translateY(-1px); box-shadow:0 8px 24px rgba(236,72,153,.45) !important; }
+    .nav-hamburger { display:none; flex-direction:column; gap:5px; padding:8px; cursor:pointer; }
+    .nav-hamburger span { display:block; width:22px; height:2px; background:var(--text-mid); border-radius:2px; transition:all .3s; }
+    .nav-mobile { display:none; position:fixed; top:calc(var(--nav-h)+24px); left:16px; right:16px; z-index:99;
+      background:rgba(255,247,251,.98); backdrop-filter:blur(20px); border:1px solid var(--border);
+      border-radius:20px; padding:20px; box-shadow:0 8px 32px var(--shadow); }
+    .nav-mobile a { display:block; padding:12px 16px; font-size:1rem; font-weight:500; color:var(--text-mid); border-radius:10px; transition:all .2s; }
+    .nav-mobile a:hover { background:rgba(236,72,153,.08); color:var(--pink); }
+    .nav-mobile.open { display:block; animation:fadeIn .2s ease; }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; padding-top: var(--nav-h);
+    }
+    .hero-bg {
+      position: absolute; inset:0;
+      background-image: url('https://static.wixstatic.com/media/83a797_7e17f2836735409c8825944d7dd430e8~mv2.jpg');
+      background-size: cover; background-position: center 30%;
+      transform: scale(1.05);
+      transition: transform 8s ease;
+    }
+    .hero-bg::after {
+      content:''; position:absolute; inset:0;
+      background: linear-gradient(160deg, rgba(131,24,67,.72) 0%, rgba(139,92,246,.45) 60%, rgba(0,0,0,.2) 100%);
+    }
+    .hero-content {
+      position: relative; z-index:2; text-align:center;
+      max-width:820px; padding:40px 24px;
+      animation: fadeUp .9s var(--ease) .2s both;
+    }
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3);
+      backdrop-filter:blur(8px); color:var(--white);
+      padding:6px 16px; border-radius:99px; font-size:.8rem; font-weight:500;
+      letter-spacing:.08em; text-transform:uppercase; margin-bottom:24px;
+    }
+    .hero-badge span { width:6px; height:6px; background:var(--pink-light); border-radius:50%; animation:pulse-ring 2s infinite; }
+    .hero h1 { color:var(--white); margin-bottom:20px; text-shadow:0 2px 20px rgba(0,0,0,.3); }
+    .hero h1 em { color:var(--pink-light); font-style:italic; }
+    .hero-sub { font-size:clamp(1rem,2vw,1.2rem); color:rgba(255,255,255,.88); margin-bottom:36px; max-width:540px; margin-left:auto; margin-right:auto; }
+    .hero-actions { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+    .btn-primary {
+      background:linear-gradient(135deg,var(--pink),var(--rose-mid));
+      color:var(--white); padding:16px 36px; border-radius:14px;
+      font-weight:600; font-size:1rem; letter-spacing:.02em;
+      box-shadow:0 8px 32px rgba(236,72,153,.5);
+      transition:transform .2s,box-shadow .2s; cursor:pointer;
+    }
+    .btn-primary:hover { transform:translateY(-2px); box-shadow:0 12px 40px rgba(236,72,153,.6); }
+    .btn-outline {
+      background:rgba(255,255,255,.15); border:1.5px solid rgba(255,255,255,.6);
+      backdrop-filter:blur(8px); color:var(--white);
+      padding:16px 36px; border-radius:14px; font-weight:600; font-size:1rem;
+      transition:background .2s,border-color .2s; cursor:pointer;
+    }
+    .btn-outline:hover { background:rgba(255,255,255,.25); border-color:white; }
+    .hero-stats {
+      position:absolute; bottom:40px; left:50%; transform:translateX(-50%);
+      display:flex; gap:40px; z-index:2;
+      animation: fadeUp .9s var(--ease) .6s both;
+    }
+    .hero-stat { text-align:center; }
+    .hero-stat-num { font-family:'Playfair Display',serif; font-size:2rem; color:var(--white); font-weight:700; }
+    .hero-stat-label { font-size:.75rem; color:rgba(255,255,255,.7); text-transform:uppercase; letter-spacing:.1em; }
+
+    /* ── Marquee strip ── */
+    .marquee-wrap { background:linear-gradient(135deg,var(--pink),var(--mauve)); padding:14px 0; overflow:hidden; }
+    .marquee-track { display:flex; gap:0; width:max-content; animation:marquee 30s linear infinite; }
+    .marquee-item { white-space:nowrap; color:var(--white); font-size:.85rem; font-weight:500; padding:0 32px; letter-spacing:.05em; text-transform:uppercase; opacity:.9; }
+    .marquee-dot { color:rgba(255,255,255,.5); padding:0 8px; }
+
+    /* ── Section base ── */
+    .section { padding:96px 24px; }
+    .container { max-width:1200px; margin:0 auto; }
+    .section-tag { font-size:.75rem; font-weight:600; text-transform:uppercase; letter-spacing:.15em; color:var(--pink); margin-bottom:12px; }
+    .section-title { margin-bottom:16px; color:var(--rose-dark); }
+    .section-sub { font-size:1.05rem; color:var(--text-mid); max-width:520px; line-height:1.7; }
+
+    /* ── About ── */
+    .about { background:var(--white); }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; }
+    .about-img-wrap { position:relative; }
+    .about-img {
+      width:100%; aspect-ratio:4/5; object-fit:cover; object-position:center top;
+      border-radius:var(--radius-lg); box-shadow:0 24px 64px var(--shadow);
+    }
+    .about-img-card {
+      position:absolute; bottom:-24px; right:-24px;
+      background:var(--white); border:1px solid var(--border);
+      border-radius:var(--radius); padding:20px 24px;
+      box-shadow:0 8px 32px var(--shadow); min-width:200px;
+    }
+    .about-img-card p { font-size:.75rem; color:var(--text-light); text-transform:uppercase; letter-spacing:.1em; }
+    .about-img-card strong { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--rose-dark); display:block; margin-top:4px; }
+    .about-text { padding:8px 0; }
+    .about-creds { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; }
+    .cred-chip {
+      background:var(--pink-pale); border:1px solid var(--border);
+      color:var(--rose-mid); font-size:.78rem; font-weight:600;
+      padding:6px 14px; border-radius:99px;
+    }
+
+    /* ── Services ── */
+    .services { background:var(--pink-pale); }
+    .services-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+      gap:24px; margin-top:56px;
+    }
+    .service-card {
+      background:var(--white); border:1px solid var(--border);
+      border-radius:var(--radius-lg); overflow:hidden;
+      transition:transform .3s var(--ease), box-shadow .3s var(--ease);
+      cursor:pointer;
+    }
+    .service-card:hover { transform:translateY(-8px); box-shadow:0 24px 64px var(--shadow); }
+    .service-card-img { width:100%; height:240px; object-fit:cover; transition:transform .5s var(--ease); }
+    .service-card:hover .service-card-img { transform:scale(1.06); }
+    .service-card-img-wrap { overflow:hidden; }
+    .service-card-body { padding:24px; }
+    .service-card-title { font-size:1.05rem; font-weight:700; color:var(--rose-dark); margin-bottom:8px; font-family:'Playfair Display',serif; }
+    .service-card-desc { font-size:.875rem; color:var(--text-mid); line-height:1.6; margin-bottom:16px; }
+    .service-card-price { font-size:.8rem; color:var(--pink); font-weight:600; }
+    .service-card-arrow {
+      display:inline-flex; align-items:center; gap:6px;
+      color:var(--mauve); font-size:.8rem; font-weight:600;
+      margin-top:12px; transition:gap .2s;
+    }
+    .service-card:hover .service-card-arrow { gap:10px; }
+
+    /* ── Results / Gallery ── */
+    .results { background:var(--white); }
+    .gallery-grid { display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:auto; gap:16px; margin-top:56px; }
+    .gallery-item { overflow:hidden; border-radius:var(--radius); }
+    .gallery-item img { width:100%; height:280px; object-fit:cover; transition:transform .5s var(--ease); }
+    .gallery-item:hover img { transform:scale(1.07); }
+    .gallery-item:first-child { grid-column:span 2; }
+    .gallery-item:first-child img { height:360px; }
+
+    /* ── Testimonials ── */
+    .testimonials { background:var(--pink-pale); }
+    .testi-slider { position:relative; margin-top:56px; overflow:hidden; }
+    .testi-track { display:flex; gap:24px; transition:transform .5s var(--ease); }
+    .testi-card {
+      min-width:calc(33.33% - 16px); background:var(--white);
+      border:1px solid var(--border); border-radius:var(--radius-lg);
+      padding:32px; flex-shrink:0;
+      box-shadow:0 4px 24px var(--shadow);
+    }
+    .testi-stars { display:flex; gap:4px; margin-bottom:16px; }
+    .testi-stars svg { width:18px; height:18px; fill:var(--pink); }
+    .testi-quote { font-size:.95rem; color:var(--text-mid); line-height:1.75; margin-bottom:20px; font-style:italic; }
+    .testi-author { font-weight:700; color:var(--rose-dark); font-size:.9rem; }
+    .testi-controls { display:flex; gap:12px; justify-content:center; margin-top:32px; }
+    .testi-btn {
+      width:44px; height:44px; border-radius:50%;
+      background:var(--white); border:1.5px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; transition:all .2s; color:var(--text-mid);
+    }
+    .testi-btn:hover { background:var(--pink); border-color:var(--pink); color:var(--white); }
+    .testi-dots { display:flex; gap:8px; align-items:center; }
+    .testi-dot { width:8px; height:8px; border-radius:50%; background:var(--border); cursor:pointer; transition:all .2s; }
+    .testi-dot.active { width:24px; border-radius:4px; background:var(--pink); }
+
+    /* ── Contact ── */
+    .contact { background:var(--white); }
+    .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; margin-top:56px; }
+    .contact-info-row { display:flex; gap:16px; margin-bottom:28px; align-items:flex-start; }
+    .contact-icon {
+      width:44px; height:44px; background:var(--pink-pale); border-radius:12px;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    }
+    .contact-icon svg { width:20px; height:20px; color:var(--pink); }
+    .contact-info-label { font-size:.75rem; color:var(--text-light); text-transform:uppercase; letter-spacing:.1em; margin-bottom:4px; }
+    .contact-info-value { color:var(--text); font-weight:500; }
+    .contact-map {
+      border-radius:var(--radius-lg); overflow:hidden; height:380px;
+      border:1px solid var(--border); box-shadow:0 8px 32px var(--shadow);
+    }
+    .contact-map iframe { width:100%; height:100%; border:none; }
+    .hours-grid { display:grid; grid-template-columns:1fr auto; gap:6px 24px; margin-top:12px; }
+    .hours-day { color:var(--text-mid); font-size:.9rem; }
+    .hours-time { color:var(--rose-mid); font-weight:600; font-size:.9rem; }
+    .contact-form { margin-top:32px; }
+    .form-row { margin-bottom:16px; }
+    .form-row label { display:block; font-size:.8rem; font-weight:600; color:var(--text-mid); margin-bottom:6px; text-transform:uppercase; letter-spacing:.06em; }
+    .form-row input, .form-row textarea, .form-row select {
+      width:100%; padding:12px 16px; border:1.5px solid var(--border);
+      border-radius:10px; font-family:inherit; font-size:.9rem; color:var(--text);
+      background:var(--surface); transition:border-color .2s, box-shadow .2s;
+    }
+    .form-row input:focus, .form-row textarea:focus, .form-row select:focus {
+      outline:none; border-color:var(--pink); box-shadow:0 0 0 3px rgba(236,72,153,.12);
+    }
+    .form-row textarea { resize:vertical; min-height:100px; }
+    .btn-submit {
+      width:100%; background:linear-gradient(135deg,var(--pink),var(--mauve));
+      color:white; padding:14px; border-radius:12px; font-weight:700;
+      font-size:1rem; cursor:pointer; border:none;
+      box-shadow:0 8px 24px rgba(236,72,153,.35);
+      transition:transform .2s, box-shadow .2s;
+    }
+    .btn-submit:hover { transform:translateY(-1px); box-shadow:0 12px 32px rgba(236,72,153,.45); }
+
+    /* ── Footer ── */
+    .footer { background:var(--rose-dark); color:rgba(255,255,255,.8); padding:60px 24px 32px; }
+    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr; gap:48px; margin-bottom:48px; }
+    .footer-brand-logo { height:50px; width:auto; margin-bottom:16px; filter:brightness(0) invert(1); }
+    .footer-brand-desc { font-size:.875rem; line-height:1.7; max-width:280px; }
+    .footer-heading { font-family:'Playfair Display',serif; color:white; font-size:1rem; margin-bottom:16px; }
+    .footer-links { list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .footer-links a { font-size:.875rem; transition:color .2s; }
+    .footer-links a:hover { color:var(--pink-light); }
+    .footer-social { display:flex; gap:12px; margin-top:20px; }
+    .footer-social a {
+      width:40px; height:40px; background:rgba(255,255,255,.1);
+      border-radius:10px; display:flex; align-items:center; justify-content:center;
+      transition:background .2s, transform .2s;
+    }
+    .footer-social a:hover { background:var(--pink); transform:translateY(-2px); }
+    .footer-social svg { width:18px; height:18px; fill:white; }
+    .footer-bottom { border-top:1px solid rgba(255,255,255,.12); padding-top:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+    .footer-bottom p { font-size:.8rem; }
+    .footer-partner { display:flex; align-items:center; gap:12px; }
+    .footer-partner img { height:28px; filter:brightness(0) invert(.7); }
+
+    /* ── WhatsApp float ── */
+    .wa-float {
+      position:fixed; bottom:28px; right:28px; z-index:200;
+      width:56px; height:56px; background:#25D366; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      box-shadow:0 8px 24px rgba(37,211,102,.4);
+      animation:float 3s ease-in-out infinite;
+      cursor:pointer; transition:transform .2s;
+    }
+    .wa-float:hover { transform:scale(1.1); }
+    .wa-float svg { width:28px; height:28px; fill:white; }
+
+    /* ── Responsive ── */
+    @media(max-width:1024px) {
+      .about-grid { grid-template-columns:1fr; gap:40px; }
+      .about-img-wrap { max-width:480px; margin:0 auto; }
+      .gallery-grid { grid-template-columns:repeat(2,1fr); }
+      .gallery-item:first-child { grid-column:span 2; }
+      .footer-grid { grid-template-columns:1fr 1fr; }
+      .contact-grid { grid-template-columns:1fr; }
+      .contact-map { height:300px; }
+      .testi-card { min-width:calc(50% - 12px); }
+    }
+    @media(max-width:768px) {
+      .section { padding:64px 20px; }
+      .nav-links { display:none; }
+      .nav-hamburger { display:flex; }
+      .hero-stats { gap:24px; bottom:24px; }
+      .hero-stat-num { font-size:1.5rem; }
+      .gallery-grid { grid-template-columns:1fr; }
+      .gallery-item:first-child { grid-column:auto; }
+      .gallery-item img, .gallery-item:first-child img { height:240px; }
+      .footer-grid { grid-template-columns:1fr; gap:32px; }
+      .testi-card { min-width:calc(100% - 0px); }
+      .services-grid { grid-template-columns:1fr; }
+      .footer-bottom { flex-direction:column; text-align:center; }
+    }
+    @media(max-width:480px) {
+      .hero-actions { flex-direction:column; align-items:center; }
+      .btn-primary, .btn-outline { width:100%; max-width:280px; text-align:center; }
+      .about-img-card { right:0; bottom:-16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-logo">
+    <img src="https://static.wixstatic.com/media/83a797_cc890d3bdd6440ada821c1c81c92ba6a~mv2.png/v1/crop/x_394,y_973,w_492,h_512/fill/w_125,h_130,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Refine%20Aesthetics%20skin%20clinic%20logo%20trans.png"
+         alt="Refine Aesthetics logo" width="44" height="44">
+    <div class="nav-logo-text">Refine<br>Aesthetics</div>
+  </div>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="prices.html">Prices</a>
+    <a href="#results">Results</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a href="blog.html">Blog</a>
+    <a href="tel:07912683492" class="nav-cta">Book Now</a>
+  </div>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile" id="navMobile" role="menu">
+  <a href="#home">Home</a>
+  <a href="#services">Services</a>
+  <a href="prices.html">Prices</a>
+  <a href="#results">Results</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+  <a href="blog.html">Blog</a>
+  <a href="tel:07912683492" style="color:var(--pink);font-weight:700;margin-top:8px;">&#9742; 07912 683492</a>
+</div>
+
+<!-- ── Hero ── -->
+<section class="hero" id="home" aria-label="Hero">
+  <div class="hero-bg" id="heroBg" aria-hidden="true"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span></span> West Kirby, Wirral
+    </div>
+    <h1>Aesthetics That<br><em>Refine You</em></h1>
+    <p class="hero-sub">Advanced injectables, medical-grade skincare and semi-permanent cosmetics — naturally enhanced results, delivered by an expert.</p>
+    <div class="hero-actions">
+      <a href="tel:07912683492" class="btn-primary">Book a Consultation</a>
+      <a href="#services" class="btn-outline">Explore Treatments</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">10+</div>
+      <div class="hero-stat-label">Years Experience</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">BSc</div>
+      <div class="hero-stat-label">Qualified Practitioner</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">5★</div>
+      <div class="hero-stat-label">Client Reviews</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Marquee ── -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">Anti-Wrinkle Injections</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Dermal Fillers</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Profhilo</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Plasma Skin Tightening</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Microneedling</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Semi-Permanent Makeup</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Fat Dissolve</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">B12 Injections</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Chemical Peels</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">DMK Enzyme</span><span class="marquee-dot">·</span>
+    <!-- duplicate for seamless loop -->
+    <span class="marquee-item">Anti-Wrinkle Injections</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Dermal Fillers</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Profhilo</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Plasma Skin Tightening</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Microneedling</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Semi-Permanent Makeup</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Fat Dissolve</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">B12 Injections</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Chemical Peels</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">DMK Enzyme</span><span class="marquee-dot">·</span>
+  </div>
+</div>
+
+<!-- ── About ── -->
+<section class="section about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap reveal">
+        <img class="about-img"
+             src="https://static.wixstatic.com/media/83a797_38ce6468b5924a70b213445cce4d9ce6~mv2.jpg"
+             alt="Samantha Casey, Advanced Aesthetics Practitioner at Refine Aesthetics Wirral"
+             loading="lazy">
+        <div class="about-img-card">
+          <p>Your practitioner</p>
+          <strong>Samantha Casey</strong>
+          <p style="margin-top:4px;font-size:.78rem;color:var(--text-light);">BSc (Hons) Chemist</p>
+        </div>
+      </div>
+      <div class="about-text">
+        <p class="section-tag reveal reveal-delay-1">About Us</p>
+        <h2 class="section-title reveal reveal-delay-1">Science Meets <em style="color:var(--pink);font-style:italic;">Artistry</em></h2>
+        <p class="section-sub reveal reveal-delay-2">Refine Aesthetics offers advanced, innovative aesthetics, semi-permanent cosmetics and medical-grade skincare treatments, producing beautiful, naturally enhanced results.</p>
+        <p style="color:var(--text-mid);margin-top:16px;line-height:1.75;" class="reveal reveal-delay-2">
+          Samantha combines her scientific background as a BSc (Hons) Chemist, extensive aesthetic training, and expert artistic eye to deliver bespoke non-surgical treatments. Results are natural-looking enhancements which flatter existing features and make each client look and feel the very best version of themselves.
+        </p>
+        <div class="about-creds reveal reveal-delay-3">
+          <span class="cred-chip">BSc (Hons) Chemistry</span>
+          <span class="cred-chip">Advanced Aesthetics Practitioner</span>
+          <span class="cred-chip">Skincare Specialist</span>
+          <span class="cred-chip">Semi-permanent Cosmetics Educator</span>
+        </div>
+        <div style="margin-top:32px;" class="reveal reveal-delay-4">
+          <a href="#contact" class="btn-primary" style="display:inline-block;">Book a Consultation</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Services ── -->
+<section class="section services" id="services">
+  <div class="container">
+    <div style="text-align:center;">
+      <p class="section-tag reveal">Treatments</p>
+      <h2 class="section-title reveal reveal-delay-1" style="margin-left:auto;margin-right:auto;">Exclusive Services</h2>
+      <p class="section-sub reveal reveal-delay-2" style="margin:0 auto;">A comprehensive range of treatments tailored to enhance your natural beauty and boost your confidence.</p>
+    </div>
+    <div class="services-grid">
+
+      <article class="service-card reveal reveal-delay-1">
+        <div class="service-card-img-wrap">
+          <img class="service-card-img" src="https://static.wixstatic.com/media/fcc7135d5606b0055b21f18d6efa5f23.jpg" alt="Anti-wrinkle injections Wirral" loading="lazy">
+        </div>
+        <div class="service-card-body">
+          <h3 class="service-card-title">Anti-Wrinkle Injections</h3>
+          <p class="service-card-desc">Purified protein injections that block nerve signals to reduce facial wrinkles and prevent over-contraction. Natural-looking, refreshed results.</p>
+          <p class="service-card-price">From £150 per area</p>
+          <a href="prices.html" class="service-card-arrow">
+            View pricing
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="service-card reveal reveal-delay-2">
+        <div class="service-card-img-wrap">
+          <img class="service-card-img" src="https://static.wixstatic.com/media/a3c153_41602b53df014421ab4d75652be69f6e~mv2.jpg" alt="Dermal filler treatment Wirral" loading="lazy">
+        </div>
+        <div class="service-card-body">
+          <h3 class="service-card-title">Dermal Filler</h3>
+          <p class="service-card-desc">Hyaluronic acid fillers to restore volume, soften lines and enhance lips, cheeks, jawline and chin for a sculpted, youthful look.</p>
+          <p class="service-card-price">Lips from £165 · Cheeks from £220</p>
+          <a href="prices.html" class="service-card-arrow">
+            View pricing
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="service-card reveal reveal-delay-3">
+        <div class="service-card-img-wrap">
+          <img class="service-card-img" src="https://static.wixstatic.com/media/83a797_d4d71e447dc9475ea93c730583c3f59b~mv2.jpeg" alt="Injectable skin boosters Profhilo Wirral" loading="lazy">
+        </div>
+        <div class="service-card-body">
+          <h3 class="service-card-title">Injectable Skin Boosters</h3>
+          <p class="service-card-desc">Profhilo, Polynucleotides and Seventy Hyal to deeply hydrate skin, improve density and deliver a luminous, youthful glow.</p>
+          <p class="service-card-price">Profhilo from £220 · Polynucleotides from £140</p>
+          <a href="prices.html" class="service-card-arrow">
+            View pricing
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="service-card reveal reveal-delay-1">
+        <div class="service-card-img-wrap">
+          <img class="service-card-img" src="https://static.wixstatic.com/media/11062b_947f1f27ed804887b9c887e459bda433~mv2.jpg" alt="Semi-permanent makeup Wirral" loading="lazy">
+        </div>
+        <div class="service-card-body">
+          <h3 class="service-card-title">Semi-Permanent Makeup</h3>
+          <p class="service-card-desc">Enhance brows, eyes and lips with precisely applied semi-permanent pigment. Wake up effortlessly polished every day.</p>
+          <p class="service-card-price">Brows £280 · Lip Blush £300 · Eyeliner £280</p>
+          <a href="prices.html" class="service-card-arrow">
+            View pricing
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="service-card reveal reveal-delay-2">
+        <div class="service-card-img-wrap">
+          <img class="service-card-img" src="https://static.wixstatic.com/media/1403c62e6e014012b0fe13f83883b898.jpg" alt="Plasma skin tightening Wirral" loading="lazy">
+        </div>
+        <div class="service-card-body">
+          <h3 class="service-card-title">Plasma Skin Tightening</h3>
+          <p class="service-card-desc">Pioneering non-surgical technology to tighten and lift loose or wrinkled skin around the eyes, brow, jowls, neck and more.</p>
+          <p class="service-card-price">From £150 per area</p>
+          <a href="prices.html" class="service-card-arrow">
+            View pricing
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="service-card reveal reveal-delay-3">
+        <div class="service-card-img-wrap">
+          <img class="service-card-img" src="https://static.wixstatic.com/media/83a797_aa97019d8f8047c8ae95fffb081f12d8~mv2.png" alt="Microneedling Wirral" loading="lazy">
+        </div>
+        <div class="service-card-body">
+          <h3 class="service-card-title">Microneedling</h3>
+          <p class="service-card-desc">EXCEED Precision Medical Microneedling with optional skin booster and Exosome cocktails for smoother, firmer, more radiant skin.</p>
+          <p class="service-card-price">Face from £167 · With Exosomes from £227</p>
+          <a href="prices.html" class="service-card-arrow">
+            View pricing
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="service-card reveal reveal-delay-1">
+        <div class="service-card-img-wrap">
+          <img class="service-card-img" src="https://static.wixstatic.com/media/a2c85f0df75246439a3cbeb8747d1ee6.jpg" alt="B12 wellness injections Wirral" loading="lazy">
+        </div>
+        <div class="service-card-body">
+          <h3 class="service-card-title">Wellness Injections</h3>
+          <p class="service-card-desc">B12, Biotin and NAD+ injections to boost energy, support immunity and enhance overall wellbeing. Fast, effective and safe.</p>
+          <p class="service-card-price">B12 £30 · Biotin £40 · NAD+ £97</p>
+          <a href="prices.html" class="service-card-arrow">
+            View pricing
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="service-card reveal reveal-delay-2">
+        <div class="service-card-img-wrap">
+          <img class="service-card-img" src="https://static.wixstatic.com/media/83a797_28fa85e131d34bf194b14ddc182eec37~mv2.jpg" alt="Fat dissolve injections Wirral" loading="lazy">
+        </div>
+        <div class="service-card-body">
+          <h3 class="service-card-title">Fat Dissolve &amp; RF Tightening</h3>
+          <p class="service-card-desc">Permanently destroy stubborn fat cells with dissolving injections, combined with radio frequency skin tightening for smooth, contoured results.</p>
+          <p class="service-card-price">Face course of 4 — £330 · Body from £450</p>
+          <a href="prices.html" class="service-card-arrow">
+            View pricing
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="service-card reveal reveal-delay-3">
+        <div class="service-card-img-wrap">
+          <img class="service-card-img" src="https://static.wixstatic.com/media/11062b_e06ee93779bd4ed48679755db695dbb5~mv2.jpg" alt="Chemical peels and facials Wirral" loading="lazy">
+        </div>
+        <div class="service-card-body">
+          <h3 class="service-card-title">Advanced Facials &amp; Peels</h3>
+          <p class="service-card-desc">Dermalux LED therapy, DMK Enzyme treatments, BioRePeel and Décaar oxygen facials — standalone or combined with other treatments.</p>
+          <p class="service-card-price">Dermalux LED £40 · DMK Enzyme from £167</p>
+          <a href="prices.html" class="service-card-arrow">
+            View pricing
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+    </div>
+
+    <div style="text-align:center;margin-top:48px;" class="reveal">
+      <a href="prices.html" class="btn-primary" style="display:inline-block;">View Full Price List</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Results Gallery ── -->
+<section class="section results" id="results">
+  <div class="container">
+    <p class="section-tag reveal">Results</p>
+    <h2 class="section-title reveal reveal-delay-1">Real Clients, <em style="color:var(--pink);font-style:italic;">Real Results</em></h2>
+    <p class="section-sub reveal reveal-delay-2">Every treatment is tailored to the individual — subtle enhancements that complement your natural features.</p>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal reveal-delay-1">
+        <img src="https://static.wixstatic.com/media/83a797_7e17f2836735409c8825944d7dd430e8~mv2.jpg" alt="Lip filler results Refine Aesthetics Wirral" loading="lazy">
+      </div>
+      <div class="gallery-item reveal reveal-delay-2">
+        <img src="https://static.wixstatic.com/media/11062b_3a525ed942384dc9bcdd3ab018afec27~mv2.jpg" alt="Natural skin treatment results" loading="lazy">
+      </div>
+      <div class="gallery-item reveal reveal-delay-3">
+        <img src="https://static.wixstatic.com/media/11062b_8c9098f664254b8ab3415d5d5ec24681~mv2.jpeg" alt="Eyebrow treatment results Wirral" loading="lazy">
+      </div>
+      <div class="gallery-item reveal reveal-delay-2">
+        <img src="https://static.wixstatic.com/media/83a797_5d82364a0bb84d2abd4ae3d2d2d2fc13~mv2.jpg" alt="Botox anti-wrinkle results" loading="lazy">
+      </div>
+      <div class="gallery-item reveal reveal-delay-3">
+        <img src="https://static.wixstatic.com/media/11062b_cbd3fb7955724827b73cbd2cceb904dd~mv2_d_5760_3840_s_4_2.jpg" alt="Skin clinic treatment results" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Testimonials ── -->
+<section class="section testimonials" id="testimonials">
+  <div class="container">
+    <p class="section-tag reveal" style="text-align:center;">Happy Clients</p>
+    <h2 class="section-title reveal reveal-delay-1" style="text-align:center;">What Our Clients Say</h2>
+    <div class="testi-slider" id="testiSlider">
+      <div class="testi-track" id="testiTrack">
+
+        <div class="testi-card">
+          <div class="testi-stars" aria-label="5 stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testi-quote">"My eyes feel wide awake, uplifted and bright, instead of heavy and tired looking. Fantastic treatment — highly recommended."</p>
+          <p class="testi-author">Natalie Burns</p>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-stars" aria-label="5 stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testi-quote">"I have had anti-wrinkle injections, filler and semi-permanent makeup from Sam and I wouldn't trust anyone else with my face. Incredibly professional with a wonderful warm manner."</p>
+          <p class="testi-author">Verified Client</p>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-stars" aria-label="5 stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testi-quote">"Sam is extremely professional and makes you feel at ease. She is a perfectionist and goes above and beyond to ensure you get the results you want!"</p>
+          <p class="testi-author">Claire Corrigan</p>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-stars" aria-label="5 stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testi-quote">"I've had anti-wrinkle injections and Profhilo treatments before my wedding and I was over the moon with the results. I was glowing on my wedding day. 100% recommend."</p>
+          <p class="testi-author">Angela</p>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-stars" aria-label="5 stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testi-quote">"I went to Sam for my B12 injection and she put me at ease straight away. She goes the extra mile because she genuinely cares. I have all my trust in whatever treatment she suggests."</p>
+          <p class="testi-author">Serena C</p>
+        </div>
+
+      </div>
+    </div>
+    <div class="testi-controls">
+      <button class="testi-btn" id="testiPrev" aria-label="Previous testimonial">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="testi-dots" id="testiDots"></div>
+      <button class="testi-btn" id="testiNext" aria-label="Next testimonial">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ── -->
+<section class="section contact" id="contact">
+  <div class="container">
+    <p class="section-tag reveal">Get In Touch</p>
+    <h2 class="section-title reveal reveal-delay-1">Visit Us in <em style="color:var(--pink);font-style:italic;">West Kirby</em></h2>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-info-row reveal">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <p class="contact-info-label">Address</p>
+            <p class="contact-info-value">Refine Aesthetics @ LUXE<br>56 Grange Road, West Kirby<br>Wirral, CH48 4EG</p>
+          </div>
+        </div>
+        <div class="contact-info-row reveal reveal-delay-1">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.07 1.18 2 2 0 012.03 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+          </div>
+          <div>
+            <p class="contact-info-label">Phone / WhatsApp</p>
+            <a href="tel:07912683492" class="contact-info-value" style="color:var(--pink);font-weight:600;">07912 683492</a>
+          </div>
+        </div>
+        <div class="contact-info-row reveal reveal-delay-2">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <p class="contact-info-label">Email</p>
+            <a href="mailto:info@refineaestheticswirral.com" class="contact-info-value" style="color:var(--pink);font-weight:600;">info@refineaestheticswirral.com</a>
+          </div>
+        </div>
+        <div class="contact-info-row reveal reveal-delay-3">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <p class="contact-info-label">Opening Hours</p>
+            <div class="hours-grid">
+              <span class="hours-day">Monday</span><span class="hours-time">9am – 6pm</span>
+              <span class="hours-day">Wednesday</span><span class="hours-time">9am – 6pm</span>
+              <span class="hours-day">Friday</span><span class="hours-time">9am – 6pm</span>
+              <span class="hours-day">Saturday</span><span class="hours-time">9am – 2pm</span>
+            </div>
+          </div>
+        </div>
+
+        <form class="contact-form reveal reveal-delay-2" id="contactForm" novalidate>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div class="form-row">
+              <label for="fname">First Name</label>
+              <input type="text" id="fname" name="fname" autocomplete="given-name" required>
+            </div>
+            <div class="form-row">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" name="lname" autocomplete="family-name" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+          </div>
+          <div class="form-row">
+            <label for="treatment">Treatment of Interest</label>
+            <select id="treatment" name="treatment">
+              <option value="">Select a treatment…</option>
+              <option>Anti-Wrinkle Injections</option>
+              <option>Dermal Filler</option>
+              <option>Profhilo / Skin Boosters</option>
+              <option>Semi-Permanent Makeup</option>
+              <option>Plasma Skin Tightening</option>
+              <option>Microneedling</option>
+              <option>Wellness Injections (B12/NAD+)</option>
+              <option>Fat Dissolve &amp; RF Tightening</option>
+              <option>Chemical Peels / Facials</option>
+              <option>General Enquiry</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us a little about what you're looking for…"></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Send Enquiry</button>
+        </form>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <div class="contact-map">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2374.7!2d-3.182057!3d53.373453!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487b2b79ca0e6d57%3A0x1234567890!2s56%20Grange%20Rd%2C%20West%20Kirby%2C%20Wirral%20CH48%204EG!5e0!3m2!1sen!2suk!4v1620000000000!5m2!1sen!2suk"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            title="Refine Aesthetics location map — 56 Grange Road, West Kirby, Wirral">
+          </iframe>
+        </div>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=56+Grange+Rd,+West+Kirby,+Wirral+CH48+4EG"
+           target="_blank" rel="noopener noreferrer"
+           style="display:inline-flex;align-items:center;gap:8px;margin-top:16px;color:var(--mauve);font-weight:600;font-size:.875rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+          Get directions
+        </a>
+        <div style="margin-top:32px;padding:24px;background:var(--pink-pale);border:1px solid var(--border);border-radius:var(--radius);">
+          <p style="font-size:.8rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">In partnership with</p>
+          <img src="https://static.wixstatic.com/media/83a797_91826ba17b504e379a37c5e45d383042~mv2.png"
+               alt="LUXE Supersalon logo" style="height:48px;width:auto;">
+          <p style="margin-top:8px;font-size:.875rem;color:var(--text-mid);">Based at LUXE Supersalon, Grange Road, West Kirby</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img class="footer-brand-logo"
+             src="https://static.wixstatic.com/media/83a797_cc890d3bdd6440ada821c1c81c92ba6a~mv2.png/v1/crop/x_394,y_973,w_492,h_512/fill/w_125,h_130,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Refine%20Aesthetics%20skin%20clinic%20logo%20trans.png"
+             alt="Refine Aesthetics Skin Clinic logo">
+        <p class="footer-brand-desc">Advanced aesthetics and medical-grade skincare in the heart of West Kirby, Wirral. Naturally enhanced results, always.</p>
+        <div class="footer-social">
+          <a href="http://www.facebook.com/refineaestheticswirral" target="_blank" rel="noopener noreferrer" aria-label="Refine Aesthetics on Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/refineaestheticswirral" target="_blank" rel="noopener noreferrer" aria-label="Refine Aesthetics on Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="tel:07912683492" aria-label="Call Refine Aesthetics">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.07 1.18 2 2 0 012.03 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-heading">Treatments</p>
+        <ul class="footer-links">
+          <li><a href="prices.html">Anti-Wrinkle Injections</a></li>
+          <li><a href="prices.html">Dermal Filler</a></li>
+          <li><a href="prices.html">Profhilo &amp; Skin Boosters</a></li>
+          <li><a href="prices.html">Plasma Skin Tightening</a></li>
+          <li><a href="prices.html">Microneedling</a></li>
+          <li><a href="prices.html">Semi-Permanent Makeup</a></li>
+          <li><a href="prices.html">Wellness Injections</a></li>
+          <li><a href="prices.html">Advanced Facials</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-heading">Quick Links</p>
+        <ul class="footer-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#results">Results</a></li>
+          <li><a href="prices.html">Prices</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="tel:07912683492">07912 683492</a></li>
+          <li><a href="mailto:info@refineaestheticswirral.com">Email Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Refine Aesthetics &amp; Skin Clinic. All rights reserved.</p>
+      <div class="footer-partner">
+        <span style="font-size:.75rem;opacity:.6;">In partnership with</span>
+        <img src="https://static.wixstatic.com/media/83a797_91826ba17b504e379a37c5e45d383042~mv2.png" alt="LUXE Supersalon">
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ── WhatsApp Float ── -->
+<a class="wa-float" href="https://wa.me/447912683492" target="_blank" rel="noopener noreferrer" aria-label="Message us on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- ── Scripts ── -->
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const navMobile = document.getElementById('navMobile');
+  hamburger.addEventListener('click', () => {
+    const open = navMobile.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', open);
+  });
+  navMobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMobile.classList.remove('open')));
+
+  // Hero parallax
+  const heroBg = document.getElementById('heroBg');
+  window.addEventListener('scroll', () => {
+    if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+      heroBg.style.transform = `scale(1.05) translateY(${window.scrollY * 0.3}px)`;
+    }
+  }, { passive: true });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Testimonial slider
+  const track = document.getElementById('testiTrack');
+  const cards = track.querySelectorAll('.testi-card');
+  const dots = document.getElementById('testiDots');
+  let current = 0;
+  let perView = window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+  const maxIndex = Math.max(0, cards.length - perView);
+
+  cards.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'testi-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', `Go to testimonial ${i+1}`);
+    dot.addEventListener('click', () => goTo(i));
+    dots.appendChild(dot);
+  });
+
+  function goTo(idx) {
+    current = Math.max(0, Math.min(idx, maxIndex));
+    const cardW = cards[0].offsetWidth + 24;
+    track.style.transform = `translateX(-${current * cardW}px)`;
+    dots.querySelectorAll('.testi-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  document.getElementById('testiPrev').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('testiNext').addEventListener('click', () => goTo(current + 1));
+
+  window.addEventListener('resize', () => {
+    perView = window.innerWidth < 768 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+    goTo(Math.min(current, Math.max(0, cards.length - perView)));
+  });
+
+  // Auto-advance testimonials
+  let autoPlay = setInterval(() => goTo(current >= maxIndex ? 0 : current + 1), 5000);
+  document.getElementById('testiSlider').addEventListener('mouseenter', () => clearInterval(autoPlay));
+  document.getElementById('testiSlider').addEventListener('mouseleave', () => {
+    autoPlay = setInterval(() => goTo(current >= maxIndex ? 0 : current + 1), 5000);
+  });
+
+  // Contact form
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('.btn-submit');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = 'Sent! We\'ll be in touch soon.';
+      btn.style.background = '#10B981';
+    }, 1200);
+  });
+</script>
+</body>
+</html>
