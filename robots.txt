@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://mcfearless75.github.io/refine-aesthetics/sitemap.xml
+
+Sitemap: https://refineaestheticswirral.co.uk/sitemap.xml

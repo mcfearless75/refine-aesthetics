@@ -1,0 +1,40 @@
+{
+  "last_updated": "2026-06-08",
+  "note": "Manually curated. Activate auto-update via .github/workflows/fetch-reviews.yml once GOOGLE_PLACES_API_KEY and GOOGLE_PLACE_ID secrets are set in the repo.",
+  "aggregate": {
+    "rating": 5.0,
+    "total": 47
+  },
+  "reviews": [
+    {
+      "author": "Natalie Burns",
+      "rating": 5,
+      "text": "My eyes feel wide awake, uplifted and bright, instead of heavy and tired looking. Fantastic treatment — highly recommended.",
+      "date": "2024-10-15"
+    },
+    {
+      "author": "Verified Client",
+      "rating": 5,
+      "text": "I have had anti-wrinkle injections, filler and semi-permanent makeup from Sam and I wouldn't trust anyone else with my face. Incredibly professional with a wonderful warm manner.",
+      "date": "2024-09-20"
+    },
+    {
+      "author": "Claire Corrigan",
+      "rating": 5,
+      "text": "Sam is extremely professional and makes you feel at ease. She is a perfectionist and goes above and beyond to ensure you get the results you want!",
+      "date": "2024-11-01"
+    },
+    {
+      "author": "Angela",
+      "rating": 5,
+      "text": "I've had anti-wrinkle injections and Profhilo treatments before my wedding and I was over the moon with the results. I was glowing on my wedding day. 100% recommend.",
+      "date": "2024-08-12"
+    },
+    {
+      "author": "Serena C",
+      "rating": 5,
+      "text": "I went to Sam for my B12 injection and she put me at ease straight away. She goes the extra mile because she genuinely cares. I have all my trust in whatever treatment she suggests.",
+      "date": "2024-12-03"
+    }
+  ]
+}

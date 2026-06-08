@@ -1,0 +1,86 @@
+name: Fetch Google Reviews
+
+# Runs daily at 6 AM UTC and can be triggered manually.
+# Requires two GitHub repository secrets:
+#   GOOGLE_PLACES_API_KEY — your Google Places API key
+#   GOOGLE_PLACE_ID       — the Place ID for Refine Aesthetics
+#
+# To find the Place ID:
+#   Go to https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder
+#   Search "Refine Aesthetics West Kirby" and copy the Place ID shown.
+#
+# To add secrets:
+#   GitHub repo → Settings → Secrets and variables → Actions → New repository secret
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  fetch-reviews:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch reviews from Google Places API
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+          PLACE_ID: ${{ secrets.GOOGLE_PLACE_ID }}
+        run: |
+          python3 << 'PYEOF'
+          import urllib.request, json, os, datetime
+
+          api_key = os.environ['GOOGLE_API_KEY']
+          place_id = os.environ['PLACE_ID']
+          url = (
+              "https://maps.googleapis.com/maps/api/place/details/json"
+              f"?place_id={place_id}"
+              "&fields=name,rating,user_ratings_total,reviews"
+              "&reviews_sort=newest"
+              f"&key={api_key}"
+          )
+
+          with urllib.request.urlopen(url) as resp:
+              data = json.loads(resp.read().decode())
+
+          result = data.get('result', {})
+          out = {
+              "last_updated": datetime.date.today().isoformat(),
+              "aggregate": {
+                  "rating": result.get('rating', 5.0),
+                  "total": result.get('user_ratings_total', 0)
+              },
+              "reviews": [
+                  {
+                      "author": r.get('author_name', 'Verified Client'),
+                      "rating": r.get('rating', 5),
+                      "text": r.get('text', '').strip(),
+                      "date": datetime.datetime.utcfromtimestamp(
+                          r.get('time', 0)
+                      ).strftime('%Y-%m-%d')
+                  }
+                  for r in result.get('reviews', [])
+                  if r.get('rating', 0) >= 4 and r.get('text', '').strip()
+              ]
+          }
+
+          with open('reviews.json', 'w', encoding='utf-8') as f:
+              json.dump(out, f, indent=2, ensure_ascii=False)
+
+          print(f"Fetched {len(out['reviews'])} reviews — "
+                f"{out['aggregate']['rating']}/5 from {out['aggregate']['total']} total")
+          PYEOF
+
+      - name: Commit reviews if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add reviews.json
+          git diff --staged --quiet \
+            && echo "No changes to reviews.json" \
+            || (git commit -m "chore: refresh Google reviews [skip ci]" && git push)

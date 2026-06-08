@@ -937,6 +937,28 @@
     @media(max-width:480px) {
       .service-row { grid-template-columns:40px 1fr 32px; gap:0 12px; }
     }
+  /* Cookie consent banner */
+  .cookie-banner {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 900;
+    background: #0e0c0b; border-top: 1px solid rgba(196,151,90,.18);
+    padding: 18px 48px; display: flex; align-items: center;
+    justify-content: space-between; gap: 24px;
+    transform: translateY(100%); transition: transform .45s cubic-bezier(.16,1,.3,1);
+  }
+  .cookie-banner.visible { transform: none; }
+  .cookie-banner p { font-size:.74rem; color:rgba(245,240,232,.6); margin:0; max-width:680px; line-height:1.7; }
+  .cookie-banner a { color:var(--gold); text-underline-offset:3px; }
+  .cookie-actions { display:flex; gap:10px; flex-shrink:0; }
+  .cookie-btn { padding:9px 22px; font-size:.6rem; font-weight:600; letter-spacing:.15em; text-transform:uppercase; cursor:pointer; border:none; transition:opacity .2s; }
+  .cookie-btn:hover { opacity:.8; }
+  .cookie-btn-accept { background:var(--gold); color:var(--ink); }
+  .cookie-btn-decline { background:transparent; color:rgba(245,240,232,.5); border:1px solid rgba(245,240,232,.18); }
+  @media (max-width:600px) {
+    .cookie-banner { flex-direction:column; align-items:flex-start; padding:20px 20px 24px; }
+    .cookie-actions { width:100%; }
+    .cookie-btn { flex:1; text-align:center; }
+  }
+
   </style>
 </head>
 <body>
@@ -1486,6 +1508,7 @@
           <li><a href="#contact">Contact</a></li>
           <li><a href="tel:07912683492">07912 683492</a></li>
           <li><a href="mailto:info@refineaestheticswirral.com">Email Us</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
         </ul>
       </div>
     </div>
@@ -1495,6 +1518,15 @@
     </div>
   </div>
 </footer>
+
+<!-- Cookie Consent Banner -->
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie consent notice">
+  <p>We use cookies to enhance your experience and analyse site traffic. See our <a href="privacy.html">Privacy Policy</a> for details.</p>
+  <div class="cookie-actions">
+    <button class="cookie-btn cookie-btn-accept" id="cookieAccept">Accept All</button>
+    <button class="cookie-btn cookie-btn-decline" id="cookieDecline">Essential Only</button>
+  </div>
+</div>
 
 <!-- WhatsApp Float -->
 <a class="wa-float" href="https://wa.me/447912683492" target="_blank" rel="noopener noreferrer" aria-label="Message us on WhatsApp">
@@ -1565,6 +1597,21 @@
   document.getElementById('testiContainer').addEventListener('mouseleave', () => {
     autoPlay = setInterval(() => goTo(testiCurrent + 1), 5500);
   });
+
+  // Cookie consent
+  (function () {
+    if (!localStorage.getItem('ra_cookie_consent')) {
+      setTimeout(() => document.getElementById('cookieBanner').classList.add('visible'), 1400);
+    }
+    document.getElementById('cookieAccept').addEventListener('click', function () {
+      localStorage.setItem('ra_cookie_consent', 'accepted');
+      document.getElementById('cookieBanner').classList.remove('visible');
+    });
+    document.getElementById('cookieDecline').addEventListener('click', function () {
+      localStorage.setItem('ra_cookie_consent', 'essential');
+      document.getElementById('cookieBanner').classList.remove('visible');
+    });
+  }());
 
   // Contact form
   document.getElementById('contactForm').addEventListener('submit', async function(e) {
