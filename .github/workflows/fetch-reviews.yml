@@ -29,56 +29,63 @@ jobs:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
         run: |
           python3 << 'PYEOF'
-          import urllib.request, json, os, datetime
+          import urllib.request, urllib.parse, json, os, datetime
 
           api_key = os.environ['GOOGLE_API_KEY']
+          headers = {
+              'Content-Type': 'application/json',
+              'X-Goog-Api-Key': api_key,
+              'X-Goog-FieldMask': 'places.id,places.displayName,places.rating,places.userRatingCount',
+          }
 
-          # Step 1: Find the Place ID by text search
-          find_url = (
-              "https://maps.googleapis.com/maps/api/place/findplacefromtext/json"
-              "?input=Refine+Aesthetics+Wirral+56+Grange+Rd+West+Kirby"
-              "&inputtype=textquery"
-              "&fields=place_id"
-              f"&key={api_key}"
+          # Step 1: Find the Place ID using Places API (New) Text Search
+          search_payload = json.dumps({
+              'textQuery': 'Refine Aesthetics Wirral 56 Grange Rd West Kirby'
+          }).encode()
+          req = urllib.request.Request(
+              'https://places.googleapis.com/v1/places:searchText',
+              data=search_payload,
+              headers=headers,
+              method='POST'
           )
-          with urllib.request.urlopen(find_url) as resp:
-              find_data = json.loads(resp.read().decode())
-          candidates = find_data.get('candidates', [])
-          if not candidates:
+          with urllib.request.urlopen(req) as resp:
+              search_data = json.loads(resp.read().decode())
+          places = search_data.get('places', [])
+          if not places:
               raise RuntimeError('Place not found via text search')
-          place_id = candidates[0]['place_id']
+          place_id = places[0]['id']
           print(f'Resolved place_id: {place_id}')
 
-          url = (
-              "https://maps.googleapis.com/maps/api/place/details/json"
-              f"?place_id={place_id}"
-              "&fields=name,rating,user_ratings_total,reviews"
-              "&reviews_sort=newest"
-              f"&key={api_key}"
+          # Step 2: Fetch place details including reviews
+          detail_headers = {
+              'X-Goog-Api-Key': api_key,
+              'X-Goog-FieldMask': 'id,displayName,rating,userRatingCount,reviews',
+          }
+          req2 = urllib.request.Request(
+              f'https://places.googleapis.com/v1/places/{place_id}',
+              headers=detail_headers,
+              method='GET'
           )
+          with urllib.request.urlopen(req2) as resp:
+              place = json.loads(resp.read().decode())
 
-          with urllib.request.urlopen(url) as resp:
-              data = json.loads(resp.read().decode())
-
-          result = data.get('result', {})
+          raw_reviews = place.get('reviews', [])
           out = {
-              "last_updated": datetime.date.today().isoformat(),
-              "aggregate": {
-                  "rating": result.get('rating', 5.0),
-                  "total": result.get('user_ratings_total', 0)
+              'last_updated': datetime.date.today().isoformat(),
+              'aggregate': {
+                  'rating': place.get('rating', 5.0),
+                  'total': place.get('userRatingCount', 0),
               },
-              "reviews": [
+              'reviews': [
                   {
-                      "author": r.get('author_name', 'Verified Client'),
-                      "rating": r.get('rating', 5),
-                      "text": r.get('text', '').strip(),
-                      "date": datetime.datetime.utcfromtimestamp(
-                          r.get('time', 0)
-                      ).strftime('%Y-%m-%d')
+                      'author': r.get('authorAttribution', {}).get('displayName', 'Verified Client'),
+                      'rating': r.get('rating', 5),
+                      'text': r.get('text', {}).get('text', '').strip(),
+                      'date': r.get('publishTime', '')[:10],
                   }
-                  for r in result.get('reviews', [])
-                  if r.get('rating', 0) >= 4 and r.get('text', '').strip()
-              ]
+                  for r in raw_reviews
+                  if r.get('rating', 0) >= 4 and r.get('text', {}).get('text', '').strip()
+              ],
           }
 
           with open('reviews.json', 'w', encoding='utf-8') as f:
