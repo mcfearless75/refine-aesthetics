@@ -1,15 +1,12 @@
 name: Fetch Google Reviews
 
 # Runs daily at 6 AM UTC and can be triggered manually.
-# Requires two GitHub repository secrets:
-#   GOOGLE_PLACES_API_KEY — your Google Places API key
-#   GOOGLE_PLACE_ID       — the Place ID for Refine Aesthetics
+# Requires ONE GitHub repository secret:
+#   GOOGLE_PLACES_API_KEY — your Google Places API key (Places API must be enabled)
 #
-# To find the Place ID:
-#   Go to https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder
-#   Search "Refine Aesthetics West Kirby" and copy the Place ID shown.
+# The Place ID is discovered automatically via text search — no need to add it manually.
 #
-# To add secrets:
+# To add the secret:
 #   GitHub repo → Settings → Secrets and variables → Actions → New repository secret
 
 on:
@@ -30,13 +27,28 @@ jobs:
       - name: Fetch reviews from Google Places API
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
-          PLACE_ID: ${{ secrets.GOOGLE_PLACE_ID }}
         run: |
           python3 << 'PYEOF'
           import urllib.request, json, os, datetime
 
           api_key = os.environ['GOOGLE_API_KEY']
-          place_id = os.environ['PLACE_ID']
+
+          # Step 1: Find the Place ID by text search
+          find_url = (
+              "https://maps.googleapis.com/maps/api/place/findplacefromtext/json"
+              "?input=Refine+Aesthetics+Wirral+56+Grange+Rd+West+Kirby"
+              "&inputtype=textquery"
+              "&fields=place_id"
+              f"&key={api_key}"
+          )
+          with urllib.request.urlopen(find_url) as resp:
+              find_data = json.loads(resp.read().decode())
+          candidates = find_data.get('candidates', [])
+          if not candidates:
+              raise RuntimeError('Place not found via text search')
+          place_id = candidates[0]['place_id']
+          print(f'Resolved place_id: {place_id}')
+
           url = (
               "https://maps.googleapis.com/maps/api/place/details/json"
               f"?place_id={place_id}"
