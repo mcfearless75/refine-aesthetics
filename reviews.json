@@ -1,40 +1,39 @@
 {
   "last_updated": "2026-06-08",
-  "note": "Manually curated. Activate auto-update via .github/workflows/fetch-reviews.yml once GOOGLE_PLACES_API_KEY and GOOGLE_PLACE_ID secrets are set in the repo.",
   "aggregate": {
-    "rating": 5.0,
-    "total": 47
+    "rating": 5,
+    "total": 11
   },
   "reviews": [
     {
-      "author": "Natalie Burns",
+      "author": "Chandelle Watkinson",
       "rating": 5,
-      "text": "My eyes feel wide awake, uplifted and bright, instead of heavy and tired looking. Fantastic treatment — highly recommended.",
-      "date": "2024-10-15"
+      "text": "I had a plasma eye lift and lip enhancement with Sam and my experience was first class. The clinic is spotlessly clean and the salon is busy and relaxing. My eyes have really lifted and my lips are lovely. Sam is very professional and her execution of both treatments was exemplary. Very precise and the results speak for themselves. Can’t wait to go back",
+      "date": "2022-06-16"
     },
     {
-      "author": "Verified Client",
+      "author": "Jessica Brown",
       "rating": 5,
-      "text": "I have had anti-wrinkle injections, filler and semi-permanent makeup from Sam and I wouldn't trust anyone else with my face. Incredibly professional with a wonderful warm manner.",
-      "date": "2024-09-20"
+      "text": "Had my lips dissolved by Sam after getting lip filler done for years by a different nurse. They were migrated and had no shape, I was really unhappy with them. I was nervous to get them dissolved but there was no pain at all and within a day or two they were back normal and had no bruising or swelling. She made me feel so comfortable and talked me through the whole process! I am now so happy with my natural lips and feel so much more confident. Couldn’t recommend her enough!",
+      "date": "2022-10-19"
     },
     {
-      "author": "Claire Corrigan",
+      "author": "Serena Casey",
       "rating": 5,
-      "text": "Sam is extremely professional and makes you feel at ease. She is a perfectionist and goes above and beyond to ensure you get the results you want!",
-      "date": "2024-11-01"
+      "text": "I have been visiting Sam for permanent makeup and anti-wrinkle treatments for a number of years now and I cannot recommend her highly enough. She is incredibly talented and takes time to put you at your ease and to make sure the results are exactly what you want. I wouldn't trust my eyebrows to anyone else!",
+      "date": "2022-10-19"
     },
     {
-      "author": "Angela",
+      "author": "Lisa Blyth",
       "rating": 5,
-      "text": "I've had anti-wrinkle injections and Profhilo treatments before my wedding and I was over the moon with the results. I was glowing on my wedding day. 100% recommend.",
-      "date": "2024-08-12"
+      "text": "Have treatments about every six months from Sam and wouldn’t go anywhere else. Sam is a perfectionist which is really important when it comes to trusting someone with your face. She makes subtle transformations which is what I’m aiming for and is extremely professional with excellent aftercare.",
+      "date": "2023-02-19"
     },
     {
-      "author": "Serena C",
+      "author": "Paula Thompson",
       "rating": 5,
-      "text": "I went to Sam for my B12 injection and she put me at ease straight away. She goes the extra mile because she genuinely cares. I have all my trust in whatever treatment she suggests.",
-      "date": "2024-12-03"
+      "text": "I started to visit Sam to have my B12 injections, the clinic room was stunning and she made me feel relaxed and at ease. I then started asking about other treatments and booked in a consultation which was very informative, I was given a range of different treatment options if I decided to go ahead. I started off with nano needling and the results on my skin after the course was amazing, so hydrated and plump would definitely recommend the treatment. Over the next 10 months  felt more confident and I moved on to have Botox, lip blush, fat dissolving injections, plasma pen on my eyes , some lip filler and a few other treatments. The best thing is she has done everything so natural looking people keep commenting on how well I look but can’t actually work out what I’ve had done. Sam is amazing at what she does, she is very professional and I would highly recommend her. I look forward to many more visits",
+      "date": "2022-07-25"
     }
   ]
 }
