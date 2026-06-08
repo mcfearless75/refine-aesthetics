@@ -1566,6 +1566,7 @@
           <li><a href="tel:07912683492">07912 683492</a></li>
           <li><a href="mailto:info@refineaestheticswirral.com">Email Us</a></li>
           <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="#" class="cookie-settings-link">Cookie settings</a></li>
         </ul>
       </div>
     </div>
@@ -1696,6 +1697,9 @@
     document.getElementById('cookieDecline').addEventListener('click', function () {
       localStorage.setItem('ra_cookie_consent', 'essential');
       document.getElementById('cookieBanner').classList.remove('visible');
+    });
+    document.querySelectorAll('.cookie-settings-link').forEach(function(el){
+      el.addEventListener('click', function(e){ e.preventDefault(); document.getElementById('cookieBanner').classList.add('visible'); });
     });
   }());
 

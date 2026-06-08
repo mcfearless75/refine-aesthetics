@@ -225,6 +225,7 @@
       <a href="blog.html">Journal</a>
       <a href="index.html#contact">Contact</a>
       <a href="privacy.html">Privacy Policy</a>
+      <a href="#" class="cookie-settings-link">Cookie settings</a>
     </div>
   </div>
   <div class="foot-btm">
@@ -283,6 +284,9 @@
     document.getElementById('cookieDecline').addEventListener('click', function () {
       localStorage.setItem('ra_cookie_consent', 'essential');
       banner.classList.remove('visible');
+    });
+    document.querySelectorAll('.cookie-settings-link').forEach(function(el){
+      el.addEventListener('click', function(e){ e.preventDefault(); document.getElementById('cookieBanner').classList.add('visible'); });
     });
   }());
 </script>
