@@ -1040,6 +1040,9 @@
 <div class="nav-mobile" id="navMobile" role="menu">
   <a href="#home">Home</a>
   <a href="#services">Services</a>
+  <a href="anti-wrinkle.html">Anti-Wrinkle</a>
+  <a href="dermal-filler.html">Dermal Filler</a>
+  <a href="skin-treatments.html">Skin Treatments</a>
   <a href="prices.html">Prices</a>
   <a href="#results">Results</a>
   <a href="#about">About</a>
@@ -1162,7 +1165,7 @@
 
     <ul class="service-list">
       <li>
-        <a href="prices.html" class="service-row reveal d1">
+        <a href="anti-wrinkle.html" class="service-row reveal d1">
           <span class="service-num">01</span>
           <div class="service-info">
             <p class="service-name">Anti-Wrinkle Injections</p>
@@ -1175,7 +1178,7 @@
         </a>
       </li>
       <li>
-        <a href="prices.html" class="service-row reveal d2">
+        <a href="dermal-filler.html" class="service-row reveal d2">
           <span class="service-num">02</span>
           <div class="service-info">
             <p class="service-name">Dermal Filler</p>
@@ -1188,7 +1191,7 @@
         </a>
       </li>
       <li>
-        <a href="prices.html" class="service-row reveal d1">
+        <a href="skin-treatments.html" class="service-row reveal d1">
           <span class="service-num">03</span>
           <div class="service-info">
             <p class="service-name">Injectable Skin Boosters</p>
@@ -1227,7 +1230,7 @@
         </a>
       </li>
       <li>
-        <a href="prices.html" class="service-row reveal d2">
+        <a href="skin-treatments.html" class="service-row reveal d2">
           <span class="service-num">06</span>
           <div class="service-info">
             <p class="service-name">Microneedling</p>
@@ -1617,36 +1620,61 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Testimonial slider — fade between cards
-  const testiCards = document.querySelectorAll('.testi-card');
-  const testiDots = document.getElementById('testiDots');
-  let testiCurrent = 0;
-
-  testiCards.forEach((_, i) => {
-    const dot = document.createElement('button');
-    dot.className = 'testi-dot' + (i === 0 ? ' active' : '');
-    dot.setAttribute('aria-label', `Go to testimonial ${i + 1}`);
-    dot.addEventListener('click', () => goTo(i));
-    testiDots.appendChild(dot);
-  });
-
-  function goTo(idx) {
-    testiCards[testiCurrent].classList.remove('active');
-    testiCurrent = (idx + testiCards.length) % testiCards.length;
-    testiCards[testiCurrent].classList.add('active');
-    testiDots.querySelectorAll('.testi-dot').forEach((d, i) =>
-      d.classList.toggle('active', i === testiCurrent)
-    );
+  // Testimonial slider — initialise after cards are in the DOM
+  function initTestiSlider() {
+    const cards = Array.from(document.querySelectorAll('.testi-card'));
+    if (!cards.length) return;
+    const dotsEl = document.getElementById('testiDots');
+    let cur = 0;
+    dotsEl.innerHTML = '';
+    cards.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'testi-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', `Go to testimonial ${i + 1}`);
+      dot.addEventListener('click', () => goTo(i));
+      dotsEl.appendChild(dot);
+    });
+    function goTo(idx) {
+      cards[cur].classList.remove('active');
+      cur = (idx + cards.length) % cards.length;
+      cards[cur].classList.add('active');
+      dotsEl.querySelectorAll('.testi-dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+    }
+    document.getElementById('testiPrev').onclick = () => goTo(cur - 1);
+    document.getElementById('testiNext').onclick = () => goTo(cur + 1);
+    let auto = setInterval(() => goTo(cur + 1), 5500);
+    document.getElementById('testiContainer').addEventListener('mouseenter', () => clearInterval(auto));
+    document.getElementById('testiContainer').addEventListener('mouseleave', () => { auto = setInterval(() => goTo(cur + 1), 5500); });
   }
 
-  document.getElementById('testiPrev').addEventListener('click', () => goTo(testiCurrent - 1));
-  document.getElementById('testiNext').addEventListener('click', () => goTo(testiCurrent + 1));
-
-  let autoPlay = setInterval(() => goTo(testiCurrent + 1), 5500);
-  document.getElementById('testiContainer').addEventListener('mouseenter', () => clearInterval(autoPlay));
-  document.getElementById('testiContainer').addEventListener('mouseleave', () => {
-    autoPlay = setInterval(() => goTo(testiCurrent + 1), 5500);
-  });
+  // Load real Google reviews from reviews.json (refreshed daily by GitHub Actions)
+  const starPath = '<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+  fetch('reviews.json')
+    .then(r => r.json())
+    .then(data => {
+      if (data.reviews && data.reviews.length >= 3) {
+        const container = document.getElementById('testiContainer');
+        container.innerHTML = data.reviews.map((r, i) =>
+          `<div class="testi-card${i === 0 ? ' active' : ''}">
+            <div class="testi-stars" aria-label="${r.rating} stars">${starPath.repeat(r.rating)}</div>
+            <p class="testi-quote">${r.text.replace(/[<>]/g, c => c === '<' ? '&lt;' : '&gt;')}</p>
+            <div class="testi-attribution"><span class="testi-author">${r.author}</span></div>
+          </div>`
+        ).join('');
+        // Update AggregateRating in BeautySalon schema
+        try {
+          const schemaEl = document.querySelector('script[type="application/ld+json"]');
+          const schema = JSON.parse(schemaEl.textContent);
+          if (schema.aggregateRating && data.aggregate) {
+            schema.aggregateRating.ratingValue = String(data.aggregate.rating);
+            schema.aggregateRating.ratingCount = String(data.aggregate.total);
+            schemaEl.textContent = JSON.stringify(schema);
+          }
+        } catch(e) {}
+      }
+      initTestiSlider();
+    })
+    .catch(() => initTestiSlider());
 
   // Cookie consent + GA4 Consent Mode v2
   (function () {
