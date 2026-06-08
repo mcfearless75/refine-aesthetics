@@ -49,6 +49,7 @@
   {
     "@context": "https://schema.org",
     "@type": "BeautySalon",
+    "@id": "https://refineaestheticswirral.co.uk/#beautysalon",
     "name": "Refine Aesthetics & Skin Clinic",
     "description": "Advanced aesthetics, semi-permanent cosmetics and medical-grade skincare in West Kirby, Wirral.",
     "url": "https://refineaestheticswirral.co.uk/",
@@ -79,10 +80,10 @@
     ],
     "aggregateRating": {
       "@type": "AggregateRating",
-      "ratingValue": "5",
-      "bestRating": "5",
-      "worstRating": "1",
-      "ratingCount": "47"
+      "ratingValue": 5,
+      "bestRating": 5,
+      "worstRating": 1,
+      "reviewCount": 47
     },
     "areaServed": [
       { "@type": "Place", "name": "West Kirby" },
@@ -109,6 +110,9 @@
       ]
     }
   }
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Person","name":"Samantha Casey","jobTitle":"Advanced Aesthetics Practitioner","worksFor":{"@type":"BeautySalon","@id":"https://refineaestheticswirral.co.uk/#beautysalon","name":"Refine Aesthetics & Skin Clinic"},"hasCredential":[{"@type":"EducationalOccupationalCredential","credentialCategory":"degree","name":"BSc (Hons) Chemistry"},{"@type":"EducationalOccupationalCredential","name":"Advanced Aesthetics Practitioner"},{"@type":"EducationalOccupationalCredential","name":"SPMU Educator"}]}
   </script>
   <script type="application/ld+json">
   {
@@ -1666,8 +1670,8 @@
           const schemaEl = document.querySelector('script[type="application/ld+json"]');
           const schema = JSON.parse(schemaEl.textContent);
           if (schema.aggregateRating && data.aggregate) {
-            schema.aggregateRating.ratingValue = String(data.aggregate.rating);
-            schema.aggregateRating.ratingCount = String(data.aggregate.total);
+            schema.aggregateRating.ratingValue = Number(data.aggregate.rating);
+            schema.aggregateRating.reviewCount = Number(data.aggregate.total);
             schemaEl.textContent = JSON.stringify(schema);
           }
         } catch(e) {}
