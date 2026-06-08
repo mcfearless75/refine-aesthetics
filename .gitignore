@@ -1,0 +1,10 @@
+# Local Claude Code / claude-flow tooling — not part of the published site
+.claude/
+.claude-flow/
+.firecrawl/
+.mcp.json
+CLAUDE.md
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
