@@ -1,33 +1,19 @@
-# Refine Aesthetics & Skin Clinic — robots.txt
+User-agent: *
+Allow: /
+Sitemap: https://refineaestheticswirral.co.uk/sitemap.xml
 
-# AI search crawlers (explicitly welcomed)
+# AI / LLM crawlers
 User-agent: GPTBot
-Allow: /
-
-User-agent: OAI-SearchBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: PerplexityBot
 Allow: /
 
 User-agent: ClaudeBot
 Allow: /
 
-User-agent: Claude-Web
+User-agent: PerplexityBot
 Allow: /
 
 User-agent: Google-Extended
 Allow: /
 
-# Common Crawl training scraper (blocked — search crawlers above stay open)
-User-agent: CCBot
-Disallow: /
-
-# All other crawlers
-User-agent: *
+User-agent: Bingbot
 Allow: /
-
-Sitemap: https://refineaestheticswirral.co.uk/sitemap.xml
